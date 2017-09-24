@@ -1,0 +1,58 @@
+version: "2"
+
+volumes:
+
+  hanashiai-staticfiles: {}
+  hanashiai-pgdata: {}
+
+services:
+
+  # WEB SERVERS #
+  nginx:
+    hostname: nginx
+    extends:
+      file: docker-compose-versions.yml
+      service: nginx
+    links:
+      - hanashiai
+    ports:
+      - "80:80"
+      - "443:443"
+      - "4431:4431"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./certs/:/etc/nginx/ssl/
+      - hanashiai-staticfiles:/var/www/hanashiai/static/
+  
+  # DATABASES #
+  hanashiai-postgres:
+    hostname: hanashiai-postgres
+    extends:
+      file: docker-compose-versions.yml
+      service: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=hanashiai_user
+      - POSTGRES_PASSWORD=postpass
+      - POSTGRES_DB=hanashiai_db
+      - PGDATA=/var/lib/postgresql/data/hanashiai/
+    volumes:
+      - hanashiai-pgdata:/var/lib/postgresql/data/hanashiai/
+  
+  # WEBSITES #
+  hanashiai:
+    hostname: hanashiai
+    build: .
+    links:
+      - hanashiai-postgres
+    environment:
+      - DJANGO_ALLOWED_HOSTS=hanashiai
+      - DB_NAME=hanashiai_db
+      - DB_USER=hanashiai_user
+      - DB_PASSWORD=postpass
+      - DB_HOST=hanashiai-postgres
+    volumes:
+      - hanashiai-staticfiles:/var/www/hanashiai/static/
+      # - ./django/anime/migrations/:/opt/hanashiai/anime/migrations/
