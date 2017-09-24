@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{% static 'anime/css/lcarssdk.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'anime/css/theme_ussNotAffiliated.css' %}" />
+    <script src="{% static 'anime/js/jquery.js' %}"></script>
+    <script src="{% static 'anime/js/webviewinfo.js' %}"></script>
+    <script src="{% static 'anime/js/lcarssdk.js' %}"></script>
+    <script src="{% static 'anime/js/arrive.js' %}"></script>
+  </head>
+  <body>
+    <script>
+      var def = {type:'title', text:'TEST', appendTo:'body', color:'text-blue-1'}
+      $(def).createObject({});
+    </script>
+  </body>
+</html>
