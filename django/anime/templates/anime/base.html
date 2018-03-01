@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{% block title %}{{ title|default:"Hanashiai" }}{% endblock %}</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'anime/css/bootstrap.min.css' %}" />
+      <script src="{% static 'anime/js/jquery.min.js' %}"></script>
+      <script src="{% static 'anime/js/bootstrap.js' %}"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-md-10 col-md-offset-1">
+        {% block body %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

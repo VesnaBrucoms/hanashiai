@@ -48,6 +48,8 @@ services:
     links:
       - hanashiai-postgres
     environment:
+      - CLIENT_ID=id
+      - CLIENT_SECRET=secret
       - DJANGO_ALLOWED_HOSTS=hanashiai
       - DB_NAME=hanashiai_db
       - DB_USER=hanashiai_user

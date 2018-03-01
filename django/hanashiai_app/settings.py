@@ -37,6 +37,7 @@ CSRF_COOKIE_SECURE = True
 # Application definition
 
 INSTALLED_APPS = [
+    'anime.apps.AnimeConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'hanashiai.urls'
+ROOT_URLCONF = 'hanashiai_app.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hanashiai.wsgi.application'
+WSGI_APPLICATION = 'hanashiai_app.wsgi.application'
 
 
 # Database

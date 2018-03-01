@@ -1,0 +1,20 @@
+{% extends "./base.html" %}
+{% block body %}
+<form class="form-horizontal" method="POST" action="{% url 'anime:search' %}">
+  <fieldset>
+    {% csrf_token %}
+    <div class="form-group">
+      {{ search_form.query }}
+    </div>
+    <input type="submit" class="btn btn-primary" name="submit" value="Search" />
+  </fieldset>
+</form>
+<p>DISCUSSIONS:</p>
+{% for dis in discussions %}
+  <p><a href="{% url 'anime:thread_detail' dis %}">{{ dis.title }}</a></p>
+{% endfor %}
+<p>REWATCHES:</p>
+{% for re in rewatches %}
+  <p><a href="{% url 'anime:thread_detail' re %}">{{ re.title }}</a></p>
+{% endfor %}
+{% endblock %}
