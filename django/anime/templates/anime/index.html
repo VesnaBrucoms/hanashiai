@@ -1,6 +1,6 @@
 {% extends "./base.html" %}
 {% block body %}
-<form class="form-horizontal" method="POST" action="{% url 'anime:index' %}">
+<form class="form-horizontal" method="POST" action="{% url 'anime:search' %}">
   <fieldset>
     {% csrf_token %}
     <div class="form-group">

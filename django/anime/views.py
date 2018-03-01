@@ -10,34 +10,21 @@ SUBREDDIT = None
 
 def index(request):
     context = {}
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            # sr_anime = Subreddit(subreddit='anime',
-            #                      app_name=app_details['name'],
-            #                      app_version=app_details['version'],
-            #                      app_author='HanashiaiDev')
-            results = _get_subreddit().search(form.cleaned_data['query'])
-            context['discussions'] = results['discussions']
-            context['rewatches'] = results['rewatches']
-            return render(request, 'anime/search.html', context)
-    else:
-        context['search_form'] = SearchForm()
+    context['search_form'] = SearchForm()
     return render(request, 'anime/index.html', context)
 
 
 def search(request):
     context = {}
-    # if request.method == 'POST':
-    #     form = SearchForm(request.POST)
-    #     if form.is_valid():
-    #         sr_anime = Subreddit(subreddit='anime',
-    #                              app_name=app_details['name'],
-    #                              app_version=app_details['version'],
-    #                              app_author='HanashiaiDev')
-    #         results = sr_anime.search(form.cleaned_data['query'])
-    #         context['discussions'] = results['discussions']
-    #         context['rewatches'] = results['rewatches']
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            results = _get_subreddit().search(form.cleaned_data['query'])
+            context['discussions'] = results['discussions']
+            context['rewatches'] = results['rewatches']
+            context['search_form'] = SearchForm()
+    else:
+        context['search_form'] = SearchForm()
     return render(request, 'anime/search.html', context)
 
 
