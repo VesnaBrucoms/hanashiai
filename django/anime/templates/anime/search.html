@@ -1,0 +1,11 @@
+{% extends "./base.html" %}
+{% block body %}
+<p>DISCUSSIONS:</p>
+{% for dis in discussions %}
+  <p>{{ dis.title }}</p>
+{% endfor %}
+<p>REWATCHES:</p>
+{% for re in rewatches %}
+  <p>{{ re.title }}</p>
+{% endfor %}
+{% endblock %}
