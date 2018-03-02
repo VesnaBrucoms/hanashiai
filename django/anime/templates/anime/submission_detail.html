@@ -10,7 +10,9 @@
     <div class="card border-light col-{{ column_adj|get_index:com.level }}">
   {% endif %}
       <div class="card-body">
-        <p class="card-text">{{ com.body }}</p>
+        {% for para in com.body %}
+        {{ para|safe }}
+        {% endfor %}
       </div>
     </div>
   </div>
