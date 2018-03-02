@@ -4,7 +4,6 @@ from hanashiai_app import app_details
 
 from .forms import SearchForm
 
-
 SUBREDDIT = None
 
 
@@ -28,10 +27,12 @@ def search(request):
     return render(request, 'anime/search.html', context)
 
 
-def thread_detail(request, thread_id):
+def submission_detail(request, submission):
     context = {}
-    context['comments'] = _get_subreddit().get_submission_comments(thread_id)
-    return render(request, 'anime/thread_detail.html', context)
+    context['sub_title'] = submission.title
+    context['comments'] = _get_subreddit().get_submission_comments(submission)
+    context['column_adj'] = [12, 11, 10, 9, 8, 7, 6, 5]
+    return render(request, 'anime/submission_detail.html', context)
 
 
 def _get_subreddit():
