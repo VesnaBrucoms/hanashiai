@@ -1,3 +1,4 @@
+import logging
 import re
 
 from django.shortcuts import render
@@ -7,6 +8,7 @@ from hanashiai_app import app_details
 from .forms import SearchForm
 
 SUBREDDIT = None
+REGEX_CHAR_CAP = r'\w\d\s\.\,\!\?\:\;\'\"\£\$\%\&\-\+\=\_\(\)\<\>\\\/'
 
 
 def index(request):
@@ -39,26 +41,22 @@ def submission_detail(request, submission):
 
 
 def _parse_comment_text(comments):
-    # regex = r'(>[\w\d\s\.\,\'\(\)]+\n)'
+    logging.info('Parsing comment text')
     for comment in comments:
-        paragraphs = comment.body.split('\n\n')
-        paragraphs = _parse_quotes(paragraphs)
-        comment.body = paragraphs
+        comment.body_html = _parse_spoilers(comment.body_html)
     return comments
 
 
-def _parse_quotes(paragraphs):
-    formatted_paras = []
-    for para in paragraphs:
-        new_text = ''
-        if '>' in para:
-            new_text = para.replace('>', '<p class="text-muted">')
-            new_text += '</p>'
-        else:
-            new_text = '<p>{}'.format(para)
-            new_text += '</p>'
-        formatted_paras.append(new_text)
-    return formatted_paras
+def _parse_spoilers(comment_body):
+    matches = re.findall(r'(\<a href\=\"\/s\" title\=\")([{captures}]+)(\"\>)([{captures}]+)(\<\/a\>)'
+                         .format(captures=REGEX_CHAR_CAP), comment_body)
+    for match in matches:
+        old_text = ''.join(match)
+        new_text = '<bdi class="sp-desc">{} </bdi><bdi class="sp-text">{}</bdi>' \
+                   .format(match[3], match[1])
+        comment_body = comment_body.replace(old_text, new_text)
+
+    return comment_body
 
 
 def _get_subreddit():
