@@ -1,0 +1,18 @@
+{% extends './base.html' %}
+{% load anime_extras %}
+{% block title %}Hanashiai - {{ sub_title }}{% endblock %}
+{% block body %}
+{% for com in comments %}
+  <div class="row justify-content-end">
+  {% if com.level == 0 %}
+    <div class="card border-dark col-{{ column_adj|get_index:com.level }}">
+  {% else %}
+    <div class="card border-light col-{{ column_adj|get_index:com.level }}">
+  {% endif %}
+      <div class="card-body">
+        {{ com.body_html|safe }}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

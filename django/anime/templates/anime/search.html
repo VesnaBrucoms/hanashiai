@@ -11,10 +11,10 @@
 </form>
 <p>DISCUSSIONS:</p>
 {% for dis in discussions %}
-  <p><a href="{% url 'anime:thread_detail' dis %}">{{ dis.title }}</a></p>
+  <p><a href="{% url 'anime:submission_detail' dis %}">{{ dis.title }}</a></p>
 {% endfor %}
 <p>REWATCHES:</p>
 {% for re in rewatches %}
-  <p><a href="{% url 'anime:thread_detail' re %}">{{ re.title }}</a></p>
+  <p><a href="{% url 'anime:submission_detail' re %}">{{ re.title }}</a></p>
 {% endfor %}
 {% endblock %}

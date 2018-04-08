@@ -9,6 +9,6 @@ urlpatterns = [
         name='index'),
     url(r'^search$', views.search,
         name='search'),
-    url(r'^search/(?P<thread_id>[A-z0-9\-\_]+)$', views.thread_detail,
-        name='thread_detail'),
+    url(r'^search/(?P<submission>[A-z0-9\-\_]+)$', views.submission_detail,
+        name='submission_detail'),
 ]

@@ -1,0 +1,13 @@
+blockquote {
+    font-style: italic;
+}
+
+bdi.sp-desc {
+    color: white;
+    background-color: black;
+}
+
+bdi.sp-text {
+    color: black;
+    background-color: black;
+}
