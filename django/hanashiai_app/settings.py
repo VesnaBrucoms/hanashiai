@@ -25,6 +25,29 @@ SECRET_KEY = '7dhg&nnuwd*rkw$!(k_k12sb1*e)6tdji!a!q6&d_*5*#uy@gk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGGING = {
+  'version': 1,
+  'disable_existing_loggers': False,
+  'handlers': {
+    'console': {
+        'level': 'DEBUG',
+        'class': 'logging.StreamHandler',
+    },
+  },
+  'loggers': {
+    'django': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+        'propagate': True,
+    },
+    'anime': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+        'propagate': True,
+    },
+  },
+}
+
 ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS', None), '192.168.99.1']
 
 
