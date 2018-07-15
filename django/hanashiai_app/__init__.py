@@ -1,5 +1,5 @@
 """General application details."""
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 app_details = {
     'name': 'Hanashiai',
