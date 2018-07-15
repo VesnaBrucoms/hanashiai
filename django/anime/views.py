@@ -8,7 +8,7 @@ from hanashiai_app import app_details
 from .forms import SearchForm
 
 SUBREDDIT = None
-REGEX_CHAR_CAP = r'\w\d\s\.\,\!\?\:\;\'\"\£\$\%\&\-\+\=\_\(\)\<\>\\\/'
+REGEX_CHAR_CAPTURE = r'\w\d\s\.\,\!\?\:\;\'\"\£\$\%\&\-\+\=\_\(\)\<\>\\\/'
 
 
 def index(request):
@@ -26,7 +26,7 @@ def search(request):
             logging.info('Performing search with query %s', query)
             results = _get_subreddit().search(query)
 
-            context['title'] = 'Hanashiai - {}'.format(query)
+            context['title'] = query
             context['discussions'] = results['discussions']
             context['rewatches'] = results['rewatches']
             context['search_form'] = SearchForm()
@@ -35,10 +35,10 @@ def search(request):
     return render(request, 'anime/search.html', context)
 
 
-def submission_detail(request, selected_id):
+def submission_detail(request, submission_id):
     context = {}
-    selected_submission = _get_subreddit().get_submission(selected_id)
-    context['title'] = 'Hanashiai - {}'.format(selected_submission.title)
+    selected_submission = _get_subreddit().get_submission(submission_id)
+    context['title'] = selected_submission.title
     context['submission_body'] = selected_submission.selftext
 
     comments = selected_submission.get_comments()
@@ -56,7 +56,7 @@ def _parse_comment_text(comments):
 
 def _parse_spoilers(comment_body):
     matches = re.findall(r'(\<a href\=\"\/s\" title\=\")([{captures}]+)(\"\>)([{captures}]+)(\<\/a\>)'
-                         .format(captures=REGEX_CHAR_CAP), comment_body)
+                         .format(captures=REGEX_CHAR_CAPTURE), comment_body)
     for match in matches:
         old_text = ''.join(match)
         new_text = '<bdi class="sp-desc">{} </bdi><bdi class="sp-text">{}</bdi>' \
